@@ -10,9 +10,17 @@ import { Component } from '@angular/core';
   <div *ngIf ="showCars">
     <h3>Cars</h3>
     <ul>
-      <li *ngFor = 'let car of cars'>{{car}}</li>
+      <li *ngFor = 'let car of cars; let i = index'>{{car}}<button (click) = "removeCar(i)">x</button></li>
     </ul>
+    <form (submit) = "addCar(car.value)">
+      <label>Add Car: </label>
+      <input type="text" #car/>
+  </form>
   </div>
+  <form>
+    <label>Name: </label>
+    <input type="text" name="name" [(ngModel)]="name"/>
+  </form>
   `,
 })
 export class UserComponent  { 
@@ -39,6 +47,13 @@ export class UserComponent  {
     } else{
       this.showCars = false;
     }
+  }
+  addCar(car){
+    this.cars.push(car);
+  }
+
+  removeCar(i){
+    this.cars.splice(i, 1);
   }
  }
 
