@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {PostsService} from '../services/posts.service';
 
 @Component({
   selector: 'user',
@@ -21,7 +22,13 @@ import { Component } from '@angular/core';
     <label>Name: </label>
     <input type="text" name="name" [(ngModel)]="name"/>
   </form>
+
+  <div *ngFor = 'let post of posts'>
+    <h3>{{post.title}}</h3>
+    <p>{{post.body}}</p>
+  </div>
   `,
+  providers: [PostsService]
 })
 export class UserComponent  { 
   name: string;
@@ -29,8 +36,9 @@ export class UserComponent  {
   address: address;
   cars: string[];
   showCars: boolean;
+  posts: Post[];
 
-  constructor(){
+  constructor(private postsService: PostsService){
     this.name = 'Angular';
     this.email = 'Angular.io';
     this.address = {
@@ -40,6 +48,10 @@ export class UserComponent  {
     };
     this.cars = ['Audi R8', 'Porsche Cayenne S', 'Lamborghini Aventador'];
     this.showCars = false;
+
+    this.postsService.getPosts().subscribe(posts => {
+      this.posts = posts;
+    });
   }
   toggleCars(){
     if(this.showCars == false){
@@ -62,3 +74,9 @@ export class UserComponent  {
    city: string;
    state: string;
  }
+
+ interface Post {
+  id: number;
+  title: string;
+  body: string;
+}
