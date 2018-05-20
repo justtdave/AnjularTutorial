@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'about',
   template: `
-    <user></user>
+    <h1>About Page</h1>
   `,
 })
 export class AboutComponent  { 
