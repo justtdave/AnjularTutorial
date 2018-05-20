@@ -2,34 +2,12 @@ import { Component } from '@angular/core';
 import {PostsService} from '../services/posts.service';
 
 @Component({
+  moduleId: module.id,
   selector: 'user',
-  template: `
-  <h1>Hello {{name}}</h1>
-  <p>Website: {{email}}</p>
-  <p>Address: {{address.street}}, {{address.city}}, {{address.state}}</p>
-  <button (click)="toggleCars()">{{showCars ? 'Hide Cars' : 'Show Cars'}}</button>
-  <div *ngIf ="showCars">
-    <h3>Cars</h3>
-    <ul>
-      <li *ngFor = 'let car of cars; let i = index'>{{car}}<button (click) = "removeCar(i)">x</button></li>
-    </ul>
-    <form (submit) = "addCar(car.value)">
-      <label>Add Car: </label>
-      <input type="text" #car/>
-  </form>
-  </div>
-  <form>
-    <label>Name: </label>
-    <input type="text" name="name" [(ngModel)]="name"/>
-  </form>
-
-  <div *ngFor = 'let post of posts'>
-    <h3>{{post.title}}</h3>
-    <p>{{post.body}}</p>
-  </div>
-  `,
+  templateUrl: 'user.component.html',
   providers: [PostsService]
 })
+
 export class UserComponent  { 
   name: string;
   email: string;
@@ -45,7 +23,7 @@ export class UserComponent  {
       street: '57, Onipetesi Estate',
       city: 'Ikeja',
       state: 'Lagos'
-    };
+    }
     this.cars = ['Audi R8', 'Porsche Cayenne S', 'Lamborghini Aventador'];
     this.showCars = false;
 
